@@ -3,7 +3,7 @@
 
 ## Estructura de el proyecto
 ```
-src/main/java/com/biblioteca/
+src/main/java/com/diegoddev/mangashop/gestion_mangas/
 ├── config/                # Configuraciones globales (Spring Security, CORS, etc.)
 ├── controller/            # Controladores (Manejan las solicitudes HTTP)
 ├── service/               # Lógica de negocio (Servicios)
