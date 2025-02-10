@@ -25,4 +25,9 @@ public class MangaService {
     public Manga getMangaById(int id) {
         return mangaRepository.findById(id).orElse(null);
     }
+
+    public Manga registerManga(Manga manga) {
+        return mangaRepository.save(manga);
+    }
+
 }

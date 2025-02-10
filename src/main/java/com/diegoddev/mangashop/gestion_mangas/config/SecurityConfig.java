@@ -15,11 +15,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests()
-                .requestMatchers("/mangas-api/*","/users-api/*").permitAll()  // Permite todas las solicitudes para esta ruta
-                .anyRequest().authenticated()  // El resto de las solicitudes deben estar autenticadas
-                .and()
-                .csrf().disable();  // Desactiva CSRF si es necesario
+                .csrf(csrf -> csrf.disable()) // 💡 Alternativa para asegurar que CSRF está desactivado
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/**").permitAll()
+                        .anyRequest().authenticated()
+                );
         return http.build();
     }
 }
+

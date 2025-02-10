@@ -1,21 +1,11 @@
-package com.diegoddev.mangashop.gestion_mangas.model;
+package com.diegoddev.mangashop.gestion_mangas.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
+import com.diegoddev.mangashop.gestion_mangas.model.Manga;
+import com.diegoddev.mangashop.gestion_mangas.model.MangaStatus;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Entity
-@Table(name = "mangas")
-public class Manga {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "manga_id")
-    private int manga_id;
+public class MangaDTO {
 
     private String title;
     private String mangaka;
@@ -26,39 +16,22 @@ public class Manga {
     private String genre;
     private String image;
     private String description;
-
-    @Enumerated(EnumType.STRING)
     private MangaStatus status;
 
-    @OneToMany(mappedBy = "manga", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    @JsonIgnore
-    private List<Loan> loans = new ArrayList<>();
-
-    public Manga() {
+    public MangaDTO(Manga manga) {
+        this.title = manga.getTitle();
+        this.mangaka = manga.getMangaka();
+        this.editorial = manga.getEditorial();
+        this.year = manga.getYear();
+        this.stock = manga.getStock();
+        this.volume = manga.getVolume();
+        this.genre = manga.getGenre();
+        this.image = manga.getImage();
+        this.description = manga.getDescription();
+        this.status = manga.getStatus();
     }
 
-    public Manga(int manga_id, String title, String mangaka, String editorial, int year, int stock, int volume, String genre, String image, String description, MangaStatus status) {
-        this.manga_id = manga_id;
-        this.title = title;
-        this.mangaka = mangaka;
-        this.editorial = editorial;
-        this.year = year;
-        this.stock = stock;
-        this.volume = volume;
-        this.genre = genre;
-        this.image = image;
-        this.description = description;
-        this.status = status;
-    }
 
-    public int getManga_id() {
-        return manga_id;
-    }
-
-    public void setManga_id(int manga_id) {
-        this.manga_id = manga_id;
-    }
 
     public String getTitle() {
         return title;
@@ -138,13 +111,5 @@ public class Manga {
 
     public void setStatus(MangaStatus status) {
         this.status = status;
-    }
-
-    public List<Loan> getLoans() {
-        return loans;
-    }
-
-    public void setLoans(List<Loan> loans) {
-        this.loans = loans;
     }
 }
